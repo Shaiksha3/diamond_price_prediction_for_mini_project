@@ -5,35 +5,28 @@ from src.exception import CustomException
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
-sys.path.append('src\logger.py') 
-import logging
+#sys.path.append('src\logger.py') 
 
 # sys.path.append('src\exception.py') 
 # import CustomException  
 
 ## intialize the data ingestion configuration
 
-# @dataclass
-# class DataIngestionconfig:
-#     train_data_path=os.path.join('artifacts','train.csv')
-#     test_data_path=os.path.join('artifacts','test.csv')
-#     raw_data_path=os.path.join('artifacts','raw.csv')
-
-
+@dataclass
 class DataIngestionconfig:
-    def __init__(self, train_data_path, test_data_path, raw_data_path):
-        self.train_data_path = train_data_path
-        self.test_data_path = test_data_path
-        self.raw_data_path = raw_data_path
+     train_data_path=os.path.join('artifacts','train.csv')
+     test_data_path=os.path.join('artifacts','test.csv')
+     raw_data_path=os.path.join('artifacts','raw.csv')
+
 
 # Example usage
 
-train_path = os.path.join('artifacts', 'train.csv')
-test_path = os.path.join('artifacts', 'test.csv')
-raw_path = os.path.join('artifacts', 'raw.csv')
+#train_path = os.path.join('artifacts', 'train.csv')
+#test_path = os.path.join('artifacts', 'test.csv')
+#raw_path = os.path.join('artifacts', 'raw.csv')
 
 
-config = DataIngestionconfig(train_data_path=train_path, test_data_path=test_path, raw_data_path=raw_path)
+#config = DataIngestionconfig(train_data_path=train_path, test_data_path=test_path, raw_data_path=raw_path)
 
 
 ## create a data ingestion class
@@ -69,3 +62,10 @@ class DataIngestion:
 
         except Exception as e:
             logging.info('Error occured in Data Ingestion config')
+            raise CustomException(e,sys)
+        
+if __name__ == "__main__":
+    obj = DataIngestion()
+    train_data_path, test_data_path = obj.initiate_data_ingestion()        
+    data_transformation = DataTransformation()
+    train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data_path, test_data_path)

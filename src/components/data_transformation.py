@@ -20,7 +20,7 @@ from src.utils import save_object
 ## Data Transformation config
 
 @dataclass
-class DataTransformationconfig:
+class DataTransformconfig:
     preprocessor_obj_file_path=os.path.join('artifacts','preprocessor.pkl')
 
 
@@ -29,7 +29,7 @@ class DataTransformationconfig:
 
 class DataTransformation:
     def __init__(self):
-        self.data_transformation_config=DataTransformationconfig()
+        self.data_transformation_config=DataTransformconfig()
 
     def get_data_transformation_object(self):
          
@@ -51,10 +51,8 @@ class DataTransformation:
                 steps=[
                 ('imputer',SimpleImputer(strategy='median')),
                 ('scaler',StandardScaler())
-
-                ]
-
-            )
+            ]
+        )
 
             # Categorigal Pipeline
             cat_pipeline=Pipeline(
@@ -73,7 +71,7 @@ class DataTransformation:
             
             return preprocessor
 
-            logging.info('Pipeline Completed')
+            #logging.info('Pipeline Completed')
 
          except Exception as e:
             

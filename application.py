@@ -2,9 +2,9 @@ from flask import Flask,request,render_template,jsonify
 from src.pipelines.prediction_pipeline import CustomData,PredictPipeline
 
 
-application=Flask(__name__)
+app=Flask(__name__, template_folder='templates')
 
-app=application
+#app=application
 
 @app.route('/')
 def home_page():
@@ -34,8 +34,8 @@ def predict_datapoint():
 
         results=round(pred[0],2)
 
-        return render_template('form.html',final_result=results)
+        return render_template('results.html',final_result=results)
     
 
 if __name__=="__main__":
-    app.run(host='0.0.0.0',debug=True)
+    app.run(host='127.0.0.1',debug=True)
